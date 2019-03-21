@@ -9,6 +9,7 @@ class Library {
     private $artists;
     private $songs;
     private $users;
+    private $admins;
     
 //construct arrays of the attributes at library level to keep a full list   
     public function __construct(){
@@ -17,6 +18,7 @@ class Library {
         $this->artists = array();
         $this->songs = array();
         $this->users = array();
+        $this->admins = array();
     } 
 // function to give ability to add playlist at the library level and add it to the list of all playlists in the library      
     public function createPlaylist($name, $user) {
@@ -39,23 +41,13 @@ class Library {
         array_push($this->users, $user);
      	return $user;
         }
-        
-// function to add genres to the library level - may be unnecessary 
-// and break things as we only want genres linked to songs
-    public function createGenre($genre) {
-    	$genreNew = new genre($genre);
-        array_push($this->genres, $genreNew);
-     	return $genreNew;
-        }
+// function to add admins to the library level
+    public function createAdmin($firstName, $lastName, $username, $password) {
+    	$admin = new Admin($firstName, $lastName, $username, $password);
+        array_push($this->admins, $admin);
+     	return $admin;
+        }       
 
-// function to add artists to the library level - may be unnecessary
-// and break things as we only want artists linked to songs
-    public function createArtist($artist) {
-    	$artistNew = new Artist($artist);
-        array_push($this->artists, $artistNew);
-     	return $artistNew;
-        }
-        
 // function to search for a specific playlist owned by a specific user at the library level    
     public function getPlaylist($name, $user) {
         // Create null playlist

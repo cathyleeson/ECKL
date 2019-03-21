@@ -2,20 +2,25 @@
 
 include 'song.php';
 include 'library.php';
-include 'artist.php';
-include 'genre.php';
 include 'playlist.php';
 include 'user.php';
 include 'admin.php';
-
+include 'people.php';
 
 $myLibrary = new Library();
  //test new user set up
 echo "\n create new customer\n";
 $libraryUser1 = $myLibrary->createUser('Keisha', 'Hunt', 'keishahunt', 'passwordisbad');
-$libraryUser2 = $myLibrary->createUser('Saul', 'Goodman', 'saulgoodman', 'bettercallsaul');
+$libraryUser2 = $myLibrary->createUser('Emma', 'Edgecombe', 'emmaedgecombe', 'passwooooord');
 echo $libraryUser1 . "\n";
 echo $libraryUser2 . "\n";
+
+ //test new admin set up
+echo "\n create new admin\n";
+$libraryAdmin1 = $myLibrary->createAdmin('Cathy', 'Leeson', 'cathyleeson', 'terriblepassword');
+$libraryAdmin2 = $myLibrary->createAdmin('Louise', 'Jones', 'louisejones', 'dntusethispsswrd');
+echo $libraryAdmin1 . "\n";
+echo $libraryAdmin2 . "\n";
 
 //test creating songs
 echo "\n create songs at library level - to go in database \n";
@@ -33,15 +38,6 @@ $mySong11 = $myLibrary->createSong('7 Rings', 'Ariana Grande', 'Pop');
 $mySong12 = $myLibrary->createSong('Save it for the Bedroom', 'You Me at Six', 'Rock');
 $mySong13 = $myLibrary->createSong('Take off your colours', 'You Me at Six', 'Rock');
 
-//test adding new genres ---- may not be necessary and may break things
-echo "\n creating genres \n";
-$ska = $myLibrary->createGenre('ska');
-echo $ska;
-
-//test adding new artist -- might be unnecessary and may break things
-echo "\n creating artists \n";
-$YMAS = $myLibrary->createArtist('You Me at Six');
-echo $YMAS;
 
 //test creating playlists
 echo "\n create playlists at library level - to go to database \n";
@@ -55,7 +51,7 @@ $myPlaylist->addSong($mySong4);
 $myPlaylist->addSong($mySong5);
 
 //created a second test playlist for Saul Goodman (breaking bad reference tho)
-$SaulsPlaylist = $myLibrary->createPlaylist('Awesome Pop Playlist', 'saulgoodman');
+$SaulsPlaylist = $myLibrary->createPlaylist('Awesome Pop Playlist', 'emmaedgecombe');
 $SaulsPlaylist->addSong($mySong6);
 $SaulsPlaylist->addSong($mySong7);
 $SaulsPlaylist->addSong($mySong8);
@@ -65,13 +61,13 @@ $SaulsPlaylist->addSong($mySong10);
 // test listing songs based on individual playlists - from playlist class methods
 echo "\n list of songs in Keishas Awesome Rock Playlist \n";
 $myPlaylist->listSongs();
-echo "\n list of songs in Sauls Awesome Pop Playlist \n";
+echo "\n list of songs in Emmas Awesome Pop Playlist \n";
 $SaulsPlaylist->listSongs();
 
 //test getting a single playlist at library level
 echo "\n two examples of searching for a playlist linked to a user \n";
 echo $myPlaylistsearched = $myLibrary->getPlaylist('Awesome Rock Playlist', 'keishahunt');
-echo $SaulsPlaylistsearched = $myLibrary->getPlaylist('Awesome Pop Playlist', 'saulgoodman');
+echo $SaulsPlaylistsearched = $myLibrary->getPlaylist('Awesome Pop Playlist', 'emmaedgecombe');
 
 //test searching by artist
 echo "\n searching for songs by Ariana Grande \n";
