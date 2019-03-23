@@ -25,7 +25,7 @@
 				<h1>Play before you pay!</h1>
 				<h3>Not the cat, the music &hearts;</h3>
 				<hr>
-                                <a type="button" class="btn btn-default btn-lg" href='loginpage.php'>Login </a>
+                                <a class="btn btn-default btn-lg" href='loginpage.php'>Login </a>
                                 <a class="btn btn-default btn-lg" href='signuppage.php'>Sign up</a>
 			</div>
 	</div>

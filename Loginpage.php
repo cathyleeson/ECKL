@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Purrfect Match</title>
+	<title>PlaybeforeyouPay</title>
         <?php
         session_start();
         ?>
@@ -19,7 +19,7 @@
 	<form aaction="" method="post" >
         Username: <input type="text" name="username" placeholder="Username" required/>
         Password: <input type="password" name="password" placeholder="Password" required/>
-        <input type="submit" value="Login" href='userpage.php'<br>
+        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'>Login</a>
         </form>
         <?php
         if(!empty($_POST)){
