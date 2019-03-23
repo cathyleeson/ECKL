@@ -19,18 +19,21 @@
 	<form action="" method="post" >
         Username: <input type="text" name="username" placeholder="Username" required/>
         Password: <input type="password" name="password" placeholder="Password" required/>
-        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'value="Login"
-               onclick="stop(event)"/>
+        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'value="Login" onclick= "login()"/>
         </form>
-        <?php
-        if(!empty($_POST)){
-        $_SESSION["username"] = $_POST['username'];    
-        }
-        if(!empty($_SESSION)){
-        echo "Welcome " . $_SESSION['username'] . '<br>';
-        echo "<a href='SessionPostPage2.php'>Go to Page 2</a><br>";
-        }
-        ?>
+                            
+        <script>
+            #function login(){
+                #{
+                #    if(empty($_POST));
+                #    location.href='userpage.php';
+                #}
+                {
+                    if(!empty($_POST));
+                    location.href='userpage.php';
+                }
+                }
+        </script>                    
 			</div>
 	</div>
 </div>
