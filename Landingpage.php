@@ -9,7 +9,13 @@
         ?>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="playbeforeyoupay.css">
-  <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
+        <style>
+            body {
+                background-image: url(https://images.unsplash.com/photo-1521192389986-637ffe547ee0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=182b724a2b67ad1fe2c0a33dba9c6d66&auto=format&fit=crop&w=753&q=80);
+            }
+        </style>
+
 </head>
 
 <div class="container">
