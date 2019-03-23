@@ -16,10 +16,11 @@
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-12"></div>
 			<div id="content">
-	<form aaction="" method="post" >
+	<form action="" method="post" >
         Username: <input type="text" name="username" placeholder="Username" required/>
         Password: <input type="password" name="password" placeholder="Password" required/>
-        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'>Login</a>
+        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'value="Login"
+               onclick="stop(event)"/>
         </form>
         <?php
         if(!empty($_POST)){

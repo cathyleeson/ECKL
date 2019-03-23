@@ -16,11 +16,11 @@
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-12"></div>
 			<div id="content">
-	<form aaction="" method="post" >
+	<form action="" method="post" >
         Email address: <input type="text" name="email" placeholder="Email address" required/>
         Username: <input type="text" name="username" placeholder="Username" />
         Password: <input type="password" name="password" placeholder="Password" required/>
-        <a type="submit" class="btn btn-default btn-lg" href='loginpage.php'>Register</a>
+        <input type="button" class="btn btn-default btn-lg" href='loginpage.php'value="Register"/>
         </form>
         <?php
         if(!empty($_POST)){
