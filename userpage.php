@@ -16,7 +16,11 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-<input type="text" placeholder="Search.." name="search">
+  <!-- changed the search box into a form to use the Get Method -->
+ <form method="GET">
+<input type="text" placeholder="Search.." name="method">
+<input type="submit" />
+ </form>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 <!--       <li class="nav-item active">
@@ -55,7 +59,22 @@
 	<div class="row justify-content-md-center">
 		<div class="col col-lg-12"></div>
 			<div id="content">
-Space for lists....
+                      <!-- code for showing search in new content box-->
+                        <div id="search">
+                            <br><br>
+                        <?php 
+                        include 'songsarray.php';
+                           
+                        if(isset($_GET['method'])){
+                        if(array_key_exists($_GET['method'], $search)){
+                            echo $search[$_GET['method']];
+                        }
+                        else {
+                            echo 'Cannot find data';
+                        }
+                        }  
+                        ?>
+                        </div>
 			</div>
 	</div>
 </div>
