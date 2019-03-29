@@ -17,23 +17,44 @@
 		<div class="col col-lg-12"></div>
 			<div id="content">
 	<form action="" method="post" >
-        Username: <input type="text" name="username" placeholder="Username" required/>
+        Email address: <input type="text" name="email" placeholder="Email address" required/>
+        Username: <input type="text" name="username" placeholder="Username" />
         Password: <input type="password" name="password" placeholder="Password" required/>
-        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'value="Login" onclick= "login()"/>
+        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'value="Register"/>
         </form>
-                            
-        <script>
-            #function login(){
-                #{
-                #    if(empty($_POST));
-                #    location.href='userpage.php';
-                #}
-                {
-                    if(!empty($_POST));
-                    location.href='userpage.php';
-                }
-                }
-        </script>                    
+        <?php
+                 
+            const DB_DSN = 'mysql:host=localhost; dbname=song_library';
+            const DB_USER = 'cathyleeson';
+            const DB_PASS = 'musicluvrr';
+            try {
+                $pdo = new PDO(DB_DSN, DB_USER, DB_PASS);
+            }   catch (PDOException $e) {
+                    DIE($e->GetMessage());
+            }
+            
+            if (empty($_POST)){
+                print "Please provide details";
+            } else {
+
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $username = $pdo->quote($_POST['username']);
+                $password = $pdo->quote($_POST['password']);                
+                $stmt = $pdo->prepare("INSERT INTO users (Username, Password) VALUES ('{$username}','{$password}')");
+                try {
+                        $stmt->execute($_POST);
+                    }   catch (PDOException $e) {
+                        echo $e->getMessage();
+                        $error = $e->errorInfo();
+                        die();
+                    }
+                    
+            unset($stmt);
+            $pdo->close();
+                                   
+            }       
+        
+        ?>
 			</div>
 	</div>
 </div>

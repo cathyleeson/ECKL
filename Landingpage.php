@@ -8,7 +8,7 @@
         session_start();
         ?>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="playbeforeyoupay.css">
+	<link rel="stylesheet" type="text/css" href="design/playbeforeyoupay.css">
         <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
         <style>
             body {
@@ -25,8 +25,8 @@
 				<h1>Play before you pay!</h1>
 				<h3>Not the cat, the music &hearts;</h3>
 				<hr>
-                                <a class="btn btn-default btn-lg" href='loginpage.php'>Login </a>
-                                <a class="btn btn-default btn-lg" href='signuppage.php'>Sign up</a>
+                                <a class="btn btn-default btn-lg" href='design/loginpage.php'>Login </a>
+                                <a class="btn btn-default btn-lg" href='design/signuppage.php'>Sign up</a>
 			</div>
 	</div>
 </div>

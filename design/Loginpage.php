@@ -17,19 +17,45 @@
 		<div class="col col-lg-12"></div>
 			<div id="content">
 	<form action="" method="post" >
-        Email address: <input type="text" name="email" placeholder="Email address" required/>
-        Username: <input type="text" name="username" placeholder="Username" />
+        Username: <input type="text" name="username" placeholder="Username" required/>
         Password: <input type="password" name="password" placeholder="Password" required/>
-        <input type="button" class="btn btn-default btn-lg" href='loginpage.php'value="Register"/>
+        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'value="Login" onclick= "login()"/>
         </form>
-        <?php
-        if(!empty($_POST)){
-        $_SESSION["username"] = $_POST['username'];    
-        }
-        if(!empty($_SESSION)){
-        echo "Welcome " . $_SESSION['username'] . '<br>';
-        }
-        ?>
+                            
+        <script>
+//            #function login(){
+//                #{
+//                #    if(empty($_POST));
+//                #    location.href='userpage.php';
+//                #}
+                {
+                    if(!empty($_POST));
+                    location.href='userpage.php';
+                }
+                }
+        </script>     
+<?php 
+ini_set('display_errors', 1);
+error_reporting(E_ALL); ini_set('display_errors', 1);
+
+if ($_POST){
+$form = $_POST;
+$username = $form['username'];
+$password = $form['password'];
+
+try{
+    $db = new PDO('mysql:host=localhost; dbname=song_library', 'root');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+    catch(PODException $e){
+        echo "Can't connect to the database";
+    }
+$sql = "SELECT * FROM users WHERE username=:username";
+$query = $db->prepare($sql);
+$query->execute(array(':username'=>$username, ':password'=>$password));
+$results = $query->fetchAll(PDO::FETCH_ASSOC);
+}           
+                        ?>
 			</div>
 	</div>
 </div>
