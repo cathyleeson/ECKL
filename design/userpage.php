@@ -12,7 +12,7 @@ $username = $_SESSION["username"];
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><? echo $username." "?> PlaybeforeyouPay</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="playbeforeyoupay.css">
+	<link rel="stylesheet" type="text/css" href="css/playbeforeyoupay.css">
   <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
         <script src ="javascript/librarysongs.js"></script>
 </head>
@@ -55,10 +55,8 @@ $username = $_SESSION["username"];
 
 <div class="container">
 	<div class="row justify-content-md-center">
-		<div class="col col-lg-12"></div>
-<!--			<div id="content">
-                       code for showing search in new content box
-                        <div id="search">-->
+<!--        <div class="col col-lg-12"></div>-->
+<div>
     <table class="table">
         <thead>
           <tr>
@@ -70,16 +68,7 @@ $username = $_SESSION["username"];
         </thead>
         <tbody>
                             <br><br>
-                        <?php 
-                        
-//        if(!empty($_POST)){
-//        $_SESSION["username"] = $_POST['username'];    
-//        }
-//        if(!empty($_SESSION)){
-//        echo "Welcome " . $_SESSION['username'] . '<br>';
-//        }
-                        
-                        
+                        <?php                       
             const DB_DSN = 'mysql:host=localhost; dbname=song_library';
             const DB_USER = 'root';
             try {
@@ -114,17 +103,18 @@ $username = $_SESSION["username"];
                             . "<td>" . $song['artist_name'] . "</td>"
                             . "<td>" . $song['SongName'] . "</td>"
                             . "<td>" . $song['genre_name'] . "</td>"
-                            . '<td><button><i class="fas fa-plus"></i></button><td>'
+                            . "<td>" . '<button><i class="fas fa-plus"></i></button>' . "</td>"
                         . "</tr>";
                   }
                 } else {
-                    print "no songs with the search above";
+                    print "<tr>" . "<td>" . "no songs with the search above" . "</td>" . "</tr>";
                 }               
             }
             
                         ?>
         </tbody>
         </table>
+</div>
                         </div>
 			</div>
 	</div>

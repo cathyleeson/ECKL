@@ -17,7 +17,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>PlaybeforeyouPay</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="playbeforeyoupay.css">
+	<link rel="stylesheet" type="text/css" href="css/playbeforeyoupay.css">
   <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
 </head>
 

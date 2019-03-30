@@ -12,7 +12,7 @@
         session_destroy();
         ?>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="design/playbeforeyoupay.css">
+	<link rel="stylesheet" type="text/css" href="design/css/playbeforeyoupay.css">
         <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
         <style>
             body {
