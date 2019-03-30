@@ -1,24 +1,32 @@
 <?php
 
-abstract class User {
-        protected $firstName;
-	protected $lastName;
+include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/connector.php";
+class User {
+        use Connector;
 	protected $username;
 	protected $password;
 	
-        public function __construct($firstName, $lastName, $username, $password) {
-		$this->firstName = $firstName;
-		$this->lastName = $lastName;		
+        public function __construct($username, $password) {		
 		$this->username = $username;
                 $this->password = $password;
 	}
         
-
-        
+        public function loginUser() {
+        $pdo = $this->connect();
+        $sql = "SELECT Username, Password FROM users WHERE Username= :user AND Password= :psw";
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['user'=> $this->username, 'psw'=> $this->password]);
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $_SESSION["username"]=$row["Username"];
+                    header("Location:userpage.php");
+                }
+            
+        } catch (PDOException $e) {
+            die("Login failed sorry ..." . $e->getMessage());
         }
-
-    // convert to string to show data for create users function in library class, left off password for data protection     
-        //function log in
-        //function to log out
-        //function change password
-        //function change email
+        unset($stmt);
+    }
+       
+        }
+      

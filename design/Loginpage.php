@@ -1,12 +1,21 @@
 <!DOCTYPE html>
+
+<?php
+    session_start();
+    include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/users/user.php"; 
+    if (!empty($_POST)){
+        $usn= filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+        $psw= $_POST["password"];
+        $login=new User($usn, $psw);
+        $login->loginUser();  
+    }
+?>
+
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>PlaybeforeyouPay</title>
-        <?php
-        session_start();
-        ?>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="playbeforeyoupay.css">
   <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
@@ -19,9 +28,9 @@
 	<form action="" method="post" >
         Username: <input type="text" name="username" placeholder="Username" required/>
         Password: <input type="password" name="password" placeholder="Password" required/>
-        <input type="submit" class="btn btn-default btn-lg" href='userpage.php'value="Login" onclick= "login()"/>
+        <input type="submit" class="btn btn-default btn-lg" href='#'value="Login"/>
         </form>
-                            
+<!--                            
         <script>
 //            #function login(){
 //                #{
@@ -33,29 +42,30 @@
                     location.href='userpage.php';
                 }
                 }
-        </script>     
-<?php 
-ini_set('display_errors', 1);
-error_reporting(E_ALL); ini_set('display_errors', 1);
+        </script>     -->
 
-if ($_POST){
-$form = $_POST;
-$username = $form['username'];
-$password = $form['password'];
-
-try{
-    $db = new PDO('mysql:host=localhost; dbname=song_library', 'root');
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-    catch(PODException $e){
-        echo "Can't connect to the database";
-    }
-$sql = "SELECT * FROM users WHERE username=:username";
-$query = $db->prepare($sql);
-$query->execute(array(':username'=>$username, ':password'=>$password));
-$results = $query->fetchAll(PDO::FETCH_ASSOC);
-}           
-                        ?>
+<?php
+//ini_set('display_errors', 1);
+//error_reporting(E_ALL); ini_set('display_errors', 1);
+//
+//if ($_POST){
+//$form = $_POST;
+//$username = $form['username'];
+//$password = $form['password'];
+//
+//try{
+//    $db = new PDO('mysql:host=localhost; dbname=song_library', 'root');
+//    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//}
+//    catch(PODException $e){
+//        echo "Can't connect to the database";
+//    }
+//$sql = "SELECT * FROM users WHERE username=:username";
+//$query = $db->prepare($sql);
+//$query->execute(array(':username'=>$username, ':password'=>$password));
+//$results = $query->fetchAll(PDO::FETCH_ASSOC);
+//}           
+//                        ?>
 			</div>
 	</div>
 </div>

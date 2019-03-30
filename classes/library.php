@@ -1,14 +1,12 @@
 <?php
 
-// eventually this will be split out but I figured it was easier for now to keep it together!
-
 class Library {
 //relevant attributes at the library level that we would want to see/search through   
     private $playlists;
     private $genres;
     private $artists;
     private $songs;
-    private $users;
+    private $customers;
     private $admins;
     
 //construct arrays of the attributes at library level to keep a full list   
@@ -36,10 +34,10 @@ class Library {
     }
       
 // function to add users to the library level
-    public function createUser($firstName, $lastName, $username, $password) {
-    	$user = new User($firstName, $lastName, $username, $password);
-        array_push($this->users, $user);
-     	return $user;
+    public function createCustomer($firstName, $lastName, $username, $password) {
+    	$customer = new Customer($firstName, $lastName, $username, $password);
+        array_push($this->customers, $customer);
+     	return $customer;
         }
 // function to add admins to the library level
     public function createAdmin($firstName, $lastName, $username, $password) {

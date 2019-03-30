@@ -10,10 +10,6 @@ html {
 	height: 100%;
 }
 
-table {
-    background-color: pink;
-}
-
 th, td {
   padding: 20px;
   text-align: center;

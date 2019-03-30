@@ -7,14 +7,14 @@
  */
 trait Connector {
     function connect() {
-        $dsn = "mysql:host=localhost; dbname=song_library";
-        $user = 'keishahunt';
-        $password = "ihuntdabestsongz";
+        $DB_DSN = "mysql:host=localhost; dbname=song_library";
+        $DB_USER = 'root';
+        $DB_PASS = '';
         try {
-            $pdo = new PDO($dsn, $user, $password);
+            $pdo = new PDO($DB_DSN, $DB_USER, $DB_PASS);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            die("Oops! Failed to connect.... " . $e->getMessage());
+            die("Failed to connect. " . $e->getMessage());
         }
         return $pdo;
     }
