@@ -1,6 +1,10 @@
 <?php
 
+include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/connector.php";
+
+
 class Library {
+    use Connector;
 //relevant attributes at the library level that we would want to see/search through   
     private $playlists;
     private $genres;

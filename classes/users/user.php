@@ -27,6 +27,20 @@ class User {
         }
         unset($stmt);
     }
+    
+        public function createUser() {
+        $pdo = $this->connect();
+        $sql = "INSERT INTO users (Username, Password) VALUES (:user, :psw)";
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['user'=> $this->username, 'psw'=> $this->password]);
+                }
+
+        catch (PDOException $e) {
+            die("Sign up failed sorry ..." . $e->getMessage());
+        }
+        unset($stmt);
+    }
        
         }
       

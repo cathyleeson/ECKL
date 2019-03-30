@@ -15,7 +15,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>PlaybeforeyouPay</title>
+	<title>Log In - PlaybeforeyouPay</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="playbeforeyoupay.css">
   <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
@@ -30,20 +30,6 @@
         Password: <input type="password" name="password" placeholder="Password" required/>
         <input type="submit" class="btn btn-default btn-lg" href='#'value="Login"/>
         </form>
-<!--                            
-        <script>
-//            #function login(){
-//                #{
-//                #    if(empty($_POST));
-//                #    location.href='userpage.php';
-//                #}
-                {
-                    if(!empty($_POST));
-                    location.href='userpage.php';
-                }
-                }
-        </script>     -->
-
 <?php
 //ini_set('display_errors', 1);
 //error_reporting(E_ALL); ini_set('display_errors', 1);

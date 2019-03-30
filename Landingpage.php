@@ -6,6 +6,10 @@
 	<title>PlaybeforeyouPay</title>
         <?php
         session_start();
+        //clear session
+        session_unset();
+        //destroy session
+        session_destroy();
         ?>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="design/playbeforeyoupay.css">
@@ -25,6 +29,9 @@
 				<h1>Play before you pay!</h1>
 				<h3>Not the cat, the music &hearts;</h3>
 				<hr>
+                                 <p><? if(empty($_SESSION)){
+                echo "Hello guest - please log in or sign up!" . '<br>';
+                } ?></p>
                                 <a class="btn btn-default btn-lg" href='design/loginpage.php'>Login </a>
                                 <a class="btn btn-default btn-lg" href='design/signuppage.php'>Sign up</a>
 			</div>

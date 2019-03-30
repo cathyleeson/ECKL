@@ -1,12 +1,22 @@
 <!DOCTYPE html>
+
+<?php
+    session_start();
+    include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/users/user.php"; 
+    if (!empty($_POST)){
+        $usn= filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+        $psw= $_POST["password"];
+        $create=new User($usn, $psw);
+        $create->createUser();  
+        $login = $create->loginUser();  
+    }
+?>
+
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>PlaybeforeyouPay</title>
-        <?php
-        session_start();
-        ?>
+	<title>Sign Up - PlaybeforeyouPay</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="playbeforeyoupay.css">
   <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
@@ -24,36 +34,36 @@
         </form>
         <?php
                  
-            const DB_DSN = 'mysql:host=localhost; dbname=song_library';
-            const DB_USER = 'root';
-            const DB_PASS = '';
-            try {
-                $pdo = new PDO(DB_DSN, DB_USER, DB_PASS);
-            }   catch (PDOException $e) {
-                    die($e->getMessage());
-            }
-            
-            if (empty($_POST)){
-                print "Please provide details";
-            } else {
-
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $username = $pdo->prepare($_POST['username']);
-                $password = $pdo->prepare($_POST['password']);                
-//                $stmt = $pdo->prepare("INSERT INTO users (Username, Password) VALUES ('{$username}','{$password}')");
-                $stmt = $pdo->prepare("INSERT INTO users (Username, Password) VALUES (:username , :password)");
-                try {
-                        $stmt->execute($_POST);
-                    }   catch (PDOException $e) {
-                        echo $e->getMessage();
-                        $error = $e->errorInfo();
-                        die();
-                    }
-                    
-            unset($stmt);
-                                   
-            }       
-        
+//            const DB_DSN = 'mysql:host=localhost; dbname=song_library';
+//            const DB_USER = 'root';
+//            const DB_PASS = '';
+//            try {
+//                $pdo = new PDO(DB_DSN, DB_USER, DB_PASS);
+//            }   catch (PDOException $e) {
+//                    die($e->getMessage());
+//            }
+//            
+//            if (empty($_POST)){
+//                print "Please provide details";
+//            } else {
+//
+//                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//                $username = $pdo->prepare($_POST['username']);
+//                $password = $pdo->prepare($_POST['password']);                
+////                $stmt = $pdo->prepare("INSERT INTO users (Username, Password) VALUES ('{$username}','{$password}')");
+//                $stmt = $pdo->prepare("INSERT INTO users (Username, Password) VALUES (:username , :password)");
+//                try {
+//                        $stmt->execute($_POST);
+//                    }   catch (PDOException $e) {
+//                        echo $e->getMessage();
+//                        $error = $e->errorInfo();
+//                        die();
+//                    }
+//                    
+//            unset($stmt);
+//                                   
+//            }       
+//        
         ?>
 			</div>
 	</div>

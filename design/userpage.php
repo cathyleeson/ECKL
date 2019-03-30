@@ -31,9 +31,8 @@ $username = $_SESSION["username"];
  </form>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-		<li class="nav-item active"> <a class="nav-link" href="#">Advanced search <span class="sr-only">(current)</span></a></li>
 		<li class="nav-item dropdown">
-        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> My playlist(s)
+        	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hiya <? echo " " . $username ." "?> - My playlist(s)
         	</a>
        	 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
        	 	<a class="dropdown-header">Playlist 1</a>
@@ -44,7 +43,7 @@ $username = $_SESSION["username"];
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <button type="button" class="nav-link" href="#">Logout <i class="fas fa-user"></i></a>
+          <a class="btn btn-default btn-lg" href='../Landingpage.php'>Logout <i class="fas fa-user"></i></a>
       </li>
     </ul>
 
