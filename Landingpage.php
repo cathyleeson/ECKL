@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>PlaybeforeyouPay</title>
         <?php
+        //this checks if any session is started and logs the user out
         session_start();
         //clear session
         session_unset();
@@ -29,6 +30,7 @@
 				<h1>Play before you pay!</h1>
 				<h3>Not the cat, the music &hearts;</h3>
 				<hr>
+<!-- the paragraph below only displays when the user is not logged in-->
                                  <p><? if(empty($_SESSION)){
                 echo "Hello guest - please log in or sign up!" . '<br>';
                 } ?></p>

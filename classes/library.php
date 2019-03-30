@@ -1,149 +1,91 @@
 <?php
 
+// pc users may have to rework the include statements until we figure out how mto do autoloading
 include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/connector.php";
 
 
 class Library {
+    //the use statement connects the connector trait which connects the class to the database
     use Connector;
-//relevant attributes at the library level that we would want to see/search through   
-    private $playlists;
-    private $genres;
-    private $artists;
-    private $songs;
-    private $customers;
-    private $admins;
-    
-//construct arrays of the attributes at library level to keep a full list   
-    public function __construct(){
-        $this->playlists = array();
-        $this->genres = array();
-        $this->artists = array();
-        $this->songs = array();
-        $this->users = array();
-        $this->admins = array();
-    } 
-// function to give ability to add playlist at the library level and add it to the list of all playlists in the library      
-    public function createPlaylist($name, $user) {
-        $playlist = new Playlist($name, $user);
-        array_push($this->playlists, $playlist);
-        return $playlist;   
-    }
-    
-// function to add songs at the library level
-    public function createSong($title, $artist, $genre) {
-        $song = new Song($title, $artist, $genre);
-        array_push($this->songs, $song);   //---- do we also want to push these to artists and genres?
-        echo $song; // this is here just to check what the song details are in tests - echo not really required
-        return $song;   
-    }
-      
-// function to add users to the library level
-    public function createCustomer($firstName, $lastName, $username, $password) {
-    	$customer = new Customer($firstName, $lastName, $username, $password);
-        array_push($this->customers, $customer);
-     	return $customer;
-        }
-// function to add admins to the library level
-    public function createAdmin($firstName, $lastName, $username, $password) {
-    	$admin = new Admin($firstName, $lastName, $username, $password);
-        array_push($this->admins, $admin);
-     	return $admin;
-        }       
+   // this function connects to the database and returns all songs ordered by artist
+public function searchbyAll() {
+        //this connects to the database
+                $pdo = $this->connect();
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //the sql query we would like to run is below
+                $sql = "select artists.ArtistName as artist_name, songs.SongName, genres.GenreName as genre_name from songs
+                                   join artists on songs.ArtistID = artists.ArtistID
+                                   join genres on songs.GenreID = genres.GenreID
+                                   order by songs.ArtistID;";
+        // this prepares the above sql statement and executes, catching any errors if it is unable
+                try {
+                        $stmt = $pdo->prepare($sql);
+                        $stmt->execute();
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){  
+                    echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
+                            . "<td>" . $row['SongName'] . "</td>"
+                            . "<td>" . $row['genre_name'] . "</td>"
+                            . "<td>" . '<button><i class="fas fa-plus"></i></button>' . "</td>"
+                        . "</tr>";
+                } 
+                }  catch (PDOException $e) {
+                        die("There was a problem " . $e->getMessage());
+                    }
+               unset($stmt);
 
-// function to search for a specific playlist owned by a specific user at the library level    
-    public function getPlaylist($name, $user) {
-        // Create null playlist
-        $playlist = null;
-        // Loop through the library playlist array
-        foreach ($this->playlists as $value) {
-        // Check the value of the current items properties in the array to see if they match the $name and $user
-            if ($value->playlistName == $name && $value->playlistUser == $user){
-                // if they match, assign $playlist to the $value
-                $playlist = $value;
-                // break out of the loop
-                break;
-            }
-        }
-        // Return $playlist, either null or equal to $value
-        return $playlist;
-    }
-         
-// function to search by artist at the library level ---- not entirely sure if this is a good way to do this but it works 
-    public function getSongsbyArtist($artist) {
-        // create null artist
-        $searchArtist[] = null;
-        // Loop through the songs array
-        foreach ($this->songs as $value) {
-        // Check the value of the current items properties in the array to see if they match the artist we are looking for
-            if($value->artist == $artist){
-        //if the artist does match the one we are looking for, push it to the search artist array and echo values
-                array_push($searchArtist, $value);
-                echo $value . "\n";
-        }
-        }
-        //return print_r($searchArtist);
-    }
-        
-// function to search by genre at the library level ---- not entirely sure if this is a good way to do this but it works 
-    public function getSongsbyGenre($genre) {
-        // create null genre
-        $searchGenre[] = null;
-        // Loop through the genre array
-        foreach ($this->songs as $value) {
-            // Check the value of the current items properties in the array to see if they match the genre we are looking for
-            if($value->genre == $genre){
-            //if the genre does match the one we are looking for, push it to the search genre array and echo values
-                array_push($searchGenre, $value);
-        echo $value . "\n";
-        }
-    }
-           // return print_r($searchGenre);
-    }
-                
-        
-// function to search by song at the library level ---- not entirely sure if this is a good way to do this but it works
-    public function getSongsbyTitle($title) {
-        // create null song
-        $searchSong[] = null;
-        // Loop through the song array
-        foreach ($this->songs as $value) {
-            // Check the value of the current items properties in the array to see if they match the song title we are looking for
-            if($value->title == $title){
-            //if the title does match the one we are looking for, push it to the search song array and echo values
-                array_push($searchSong, $value);
-                echo $value . "\n";
-        }
-        }
-        //return print_r($searchSong);
-    }
-         
-}   
-        
-// ---------- end of library class, onto more specific classes -------------------
-        
-        
-/* 
-       * 
-       * 
-       * The below is still left to do
-       * 
-       * 
-       * 
-        test setting a new playlist name in testing section
-        alter username/password/email addresses
-       add a time limit on playlists
-       add a song limit on playlists
-      
-       basically all the remove functions
-        public function  removeUserfromDB($User) {
-	        }
-        public function  removeSongfromDB($Song) {
-	        }
+            
+}
+        // this function takes a search value from the searchbar and looks for an artist matching
+public function searchbyArtist($search) {
+        //this connects to the database
+        $pdo = $this->connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //the sql query we would like to run is below
+        $sql = "select artists.ArtistName as artist_name, songs.SongName, genres.GenreName as genre_name from songs
+                join artists on songs.ArtistID = artists.ArtistID
+                join genres on songs.GenreID = genres.GenreID
+                WHERE artists.ArtistName LIKE :search";
+// this prepares the above sql statement and executes, catching any errors if it is unable
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['search'=>"%".$search."%"]);   
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){  
+                    echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
+                            . "<td>" . $row['SongName'] . "</td>"
+                            . "<td>" . $row['genre_name'] . "</td>"
+                            . "<td>" . '<button><i class="fas fa-plus"></i></button>' . "</td>"
+                        . "</tr>";
+                }
+        }           catch (PDOException $e) {
+                        die("Artist search failed sorry ..." . $e->getMessage());
+                    }
+        unset($stmt);
+}
+        // this function takes a search value from the searchbar and looks for an genre matching
+public function searchbyGenre($search) {
+    //this connects to the database
+        $pdo = $this->connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //the sql query we would like to run is below
+        $sql = "select artists.ArtistName as artist_name, songs.SongName, genres.GenreName as genre_name from songs
+                join artists on songs.ArtistID = artists.ArtistID
+                join genres on songs.GenreID = genres.GenreID
+                WHERE genres.GenreName LIKE :search";
+// this prepares the above sql statement and executes, catching any errors if it is unable
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['search'=>"%".$search."%"]);   
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){  
+                    echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
+                            . "<td>" . $row['SongName'] . "</td>"
+                            . "<td>" . $row['genre_name'] . "</td>"
+                            . "<td>" . '<button><i class="fas fa-plus"></i></button>' . "</td>"
+                        . "</tr>";
+                }
+        }           catch (PDOException $e) {
+                        die("Genre search failed sorry ..." . $e->getMessage());
+                    }
+        unset($stmt);
+}
+}
 
-        public function  removeUserPlaylist($Playlist, $User) {
-	        }
-        public function  removeSongfromPlaylist($Playlist, $Song) {
-	        }
-        public function userLogin() {
-       }
-       *        */

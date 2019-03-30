@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <?php
+//include the library class as it contains the methods to search
+// pc users may have to rework the include statements until we figure out how mto do autoloading
+include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/library.php";
+//check user session is active
 session_start();
 if(!empty($_SESSION)){
 $username = $_SESSION["username"];
 }
+//make a new library object to run the searches on
+$searchsongs = new Library();
 ?>
 
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- username displayed in tab to show who is logged in -->
 	<title><? echo $username." "?> PlaybeforeyouPay</title>
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="css/playbeforeyoupay.css">
@@ -23,12 +30,10 @@ $username = $_SESSION["username"];
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <!-- changed the search box into a form to use the Get Method -->
- <form method="POST">
-        <input type="text" placeholder="Search..." name="view" id="view">
-<!--        <div id="display"></div>-->
-        <input type="submit" />
- </form>
+        <form method="POST">
+                <input type="text" placeholder="Search..." name="search" id="search">
+                <input type="submit" />
+        </form>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 		<li class="nav-item dropdown">
@@ -43,11 +48,10 @@ $username = $_SESSION["username"];
     </ul>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
+          <!-- log out button logs the user out and redirects them to the landing page -->
           <a class="btn btn-default btn-lg" href='../Landingpage.php'>Logout <i class="fas fa-user"></i></a>
       </li>
-    </ul>
-
-  
+    </ul> 
 </div>
 </nav>
 
@@ -55,7 +59,6 @@ $username = $_SESSION["username"];
 
 <div class="container">
 	<div class="row justify-content-md-center">
-<!--        <div class="col col-lg-12"></div>-->
 <div>
     <table class="table">
         <thead>
@@ -67,50 +70,16 @@ $username = $_SESSION["username"];
           </tr>
         </thead>
         <tbody>
-                            <br><br>
-                        <?php                       
-            const DB_DSN = 'mysql:host=localhost; dbname=song_library';
-            const DB_USER = 'root';
-            try {
-                $pdo = new PDO(DB_DSN, DB_USER);
-            }   catch (PDOException $e) {
-                    DIE($e->GetMessage());
-            }
-            
-            if (empty($_POST)){
-                print "<br> Leave search-bar blank and press submit to show all songs";
-            } else {
-                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $pdo->prepare(
-                    "select artists.ArtistName as artist_name, songs.SongName, genres.GenreName as genre_name from songs
-                                   join artists on songs.ArtistID = artists.ArtistID
-                                   join genres on songs.GenreID = genres.GenreID
-                                   order by songs.ArtistID;"
-                );
-                
-                try {
-                        $stmt->execute($_POST);
-                    }   catch (PDOException $e) {
-                        echo $e->getMessage();
-                        $error = $e->errorInfo();
-                        die();
-                    }
-                    
-                $searchResults = $stmt->fetchAll();
-                if (count($searchResults) > 0) {  
-                  foreach ($searchResults as $song) {
-                    print "<tr>"
-                            . "<td>" . $song['artist_name'] . "</td>"
-                            . "<td>" . $song['SongName'] . "</td>"
-                            . "<td>" . $song['genre_name'] . "</td>"
-                            . "<td>" . '<button><i class="fas fa-plus"></i></button>' . "</td>"
-                        . "</tr>";
-                  }
-                } else {
-                    print "<tr>" . "<td>" . "no songs with the search above" . "</td>" . "</tr>";
-                }               
-            }
-            
+<br><br>
+                        <?php   
+    // this checks if a user has typed in the search bar - if not then it brings up all songs in database
+                    if (!empty($_POST["search"])){
+                    $search = filter_var($_POST["search"], FILTER_SANITIZE_STRING);
+                    $searchsongs->searchbyArtist($search);
+                    $searchsongs->searchbyGenre($search);
+                    } else {
+                            $searchsongs->searchbyAll();
+                            }
                         ?>
         </tbody>
         </table>

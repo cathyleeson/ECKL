@@ -1,10 +1,6 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// the connector trait has a function to allow connection to the database - I thought it
+// would be easier to put it as a trait since many methods need to connect
 trait Connector {
     function connect() {
         $DB_DSN = "mysql:host=localhost; dbname=song_library";
