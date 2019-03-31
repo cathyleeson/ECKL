@@ -42,7 +42,7 @@ $searchsongs = new Library();
        	 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
        	 	<a class="dropdown-header">Playlist 1</a>
        	   <div class="dropdown-divider"></div>
-      	    <a class="dropdown-item" href="#">View all playlists</a>
+           <a class="dropdown-item" href="userplaylist.php">View all playlists</a>
       	  </div>
       </li>      
     </ul>

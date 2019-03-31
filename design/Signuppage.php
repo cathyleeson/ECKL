@@ -32,39 +32,6 @@
         Password: <input type="password" name="password" placeholder="Password" required/>
         <input type="submit" class="btn btn-default btn-lg" href='userpage.php'value="Register"/>
         </form>
-        <?php
-                 
-//            const DB_DSN = 'mysql:host=localhost; dbname=song_library';
-//            const DB_USER = 'root';
-//            const DB_PASS = '';
-//            try {
-//                $pdo = new PDO(DB_DSN, DB_USER, DB_PASS);
-//            }   catch (PDOException $e) {
-//                    die($e->getMessage());
-//            }
-//            
-//            if (empty($_POST)){
-//                print "Please provide details";
-//            } else {
-//
-//                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//                $username = $pdo->prepare($_POST['username']);
-//                $password = $pdo->prepare($_POST['password']);                
-////                $stmt = $pdo->prepare("INSERT INTO users (Username, Password) VALUES ('{$username}','{$password}')");
-//                $stmt = $pdo->prepare("INSERT INTO users (Username, Password) VALUES (:username , :password)");
-//                try {
-//                        $stmt->execute($_POST);
-//                    }   catch (PDOException $e) {
-//                        echo $e->getMessage();
-//                        $error = $e->errorInfo();
-//                        die();
-//                    }
-//                    
-//            unset($stmt);
-//                                   
-//            }       
-//        
-        ?>
 			</div>
 	</div>
 </div>

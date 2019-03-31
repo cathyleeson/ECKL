@@ -23,7 +23,8 @@ class User {
                 }
             
         } catch (PDOException $e) {
-            die("Login failed sorry ..." . $e->getMessage());
+            $error = $e->errorInfo();
+            die("Login failed sorry ..." . $error . $e->getMessage());
         }
         unset($stmt);
     }
@@ -37,7 +38,8 @@ class User {
                 }
 
         catch (PDOException $e) {
-            die("Sign up failed sorry ..." . $e->getMessage());
+            $error = $e->errorInfo();
+            die("Sign up failed sorry ..." . $error . $e->getMessage());
         }
         unset($stmt);
     }
