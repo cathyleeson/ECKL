@@ -22,10 +22,10 @@ public function searchbyAll() {
                         $stmt = $pdo->prepare($sql);
                         $stmt->execute();
                         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){  
-                    echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
+                    echo "<tr>" . "<form method = 'POST'><td>" . $row['artist_name'] . "</td>"
                             . "<td>" . $row['SongName'] . "</td>"
                             . "<td>" . $row['genre_name'] . "</td>"
-                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>" . "</tr>";
+                            . "<td>" . '<button type="submit"><i class="fas fa-plus"></i></button></form>' . "</td>" . "</tr>";
                 } 
                 }  catch (PDOException $e) {
                         $error = $e->errorInfo();
@@ -52,7 +52,7 @@ public function searchbyArtist($search) {
                     echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
                             . "<td>" . $row['SongName'] . "</td>"
                             . "<td>" . $row['genre_name'] . "</td>"
-                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>" . "</tr>";
+                            . "<td>" . '<button><i class="fas fa-plus"></i></button>' . "</td>" . "</tr>";
                 }
         }           catch (PDOException $e) {
                             $error = $e->errorInfo();
@@ -78,7 +78,7 @@ public function searchbyGenre($search) {
                     echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
                             . "<td>" . $row['SongName'] . "</td>"
                             . "<td>" . $row['genre_name'] . "</td>"
-                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>" . "</tr>";
+                            . "<td>" . '<button><i class="fas fa-plus"></i></button>' . "</td>" . "</tr>";
                 }
         }           catch (PDOException $e) {
                                     $error = $e->errorInfo();
@@ -115,7 +115,7 @@ public function searchbyGenre($search) {
                             . "<td>" . $row['Artist'] . "</td>"
                             . "<td>" . $row['song_title'] . "</td>"
                             . "<td>" . $row['Genre'] . "</td>"
-                            . "<td>" . '<button class = "removed" data-toggle="popover" data-placement="right" data-content="Removed from Playlist"><i class="far fa-minus-square"></i></button>' . "</td>"
+                            . "<td>" . '<button><i class="far fa-minus-square"></i></button>' . "</td>"
                         . "</tr>"; }
                 } catch (PDOException $e) {
             $error = $e->errorInfo();

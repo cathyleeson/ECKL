@@ -60,6 +60,22 @@ class Playlist {
         unset($stmt);
     }
     
+        public function addSongtoPlaylist($song) {
+        $pdo = $this->connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO song_to_playlist (SongID, PlaylistID) "
+                . "VALUES ((SELECT SongID from songs WHERE SongName = :song), "
+                . "(SELECT PlaylistID from playlist_to_user WHERE PlaylistName = :playlistname AND PlaylistOwnerID LIKE (SELECT UserID from users WHERE Username = :user)))";
+                try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['song' => "%".$song."%" ,'playlistname'=> $this->playlistName, 'user'=> $this->playlistUser]);
+        } catch (PDOException $e) {
+            $error = $e->errorInfo();
+            die("Song added failed sorry ..." . $error . $e->getMessage());
+        }
+        unset($stmt);
+    }
+    
     
         public function set($playlistName, $value){
         $this->$playlistName = $value;

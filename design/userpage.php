@@ -3,12 +3,15 @@
 //include the library class as it contains the methods to search
 // pc users may have to rework the include statements until we figure out how mto do autoloading
 include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/library.php";
+include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/Playlist.php";
+
 //check user session is active
 session_start();
 if(!empty($_SESSION)){
 $username = $_SESSION["username"];
     if (isset($_SESSION["playlistname"])){
     $selectedplaylist= $_SESSION["playlistname"];
+    $newPlaylist = new Playlist($selectedplaylist,$username);
 }
 }
 
@@ -68,9 +71,9 @@ $searchsongs = new Library();
             <th scope="col">Artist</th>
             <th scope="col">Song</th>
             <th scope="col">Genre</th>
-            <th scope="col">Save to playlist - 
+            <th scope="col">Save to playlist 
                 <?php //this statement only shows if a playlist session is active and ready to have songs added
-                if (isset($_SESSION["playlistname"])){echo " " . $selectedplaylist;}?>
+                if (isset($_SESSION["playlistname"])){echo " - " . $selectedplaylist;}?>
             </th>
           </tr>
         </thead>
@@ -85,6 +88,12 @@ $searchsongs = new Library();
                     } else {
                             $searchsongs->searchbyAll();
                             }
+                  if (isset($_SESSION["playlistname"])&& (!empty($_POST["addsong"])))
+                  {
+                    $addsong = filter_var($_POST["addsong"], FILTER_SANITIZE_STRING);
+                    $newPlaylist->addSongtoPlaylist($addsong);
+                    } 
+ 
                         ?>
         </tbody>
         </table>
