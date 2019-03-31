@@ -25,17 +25,15 @@ public function searchbyAll() {
                     echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
                             . "<td>" . $row['SongName'] . "</td>"
                             . "<td>" . $row['genre_name'] . "</td>"
-                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>"
-                        . "</tr>";
+                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>" . "</tr>";
                 } 
                 }  catch (PDOException $e) {
                         $error = $e->errorInfo();
                         die("There was a problem " . $error . $e->getMessage());
                     }
-               unset($stmt);
-
-            
+               unset($stmt);       
 }
+
         // this function takes a search value from the searchbar and looks for an artist matching
 public function searchbyArtist($search) {
         //this connects to the database
@@ -54,8 +52,7 @@ public function searchbyArtist($search) {
                     echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
                             . "<td>" . $row['SongName'] . "</td>"
                             . "<td>" . $row['genre_name'] . "</td>"
-                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>"
-                        . "</tr>";
+                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>" . "</tr>";
                 }
         }           catch (PDOException $e) {
                             $error = $e->errorInfo();
@@ -81,8 +78,7 @@ public function searchbyGenre($search) {
                     echo "<tr>" . "<td>" . $row['artist_name'] . "</td>"
                             . "<td>" . $row['SongName'] . "</td>"
                             . "<td>" . $row['genre_name'] . "</td>"
-                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>"
-                        . "</tr>";
+                            . "<td>" . '<button class = "added" data-toggle="popover" data-placement="right" data-content="Added to Playlist"><i class="fas fa-plus"></i></button>' . "</td>" . "</tr>";
                 }
         }           catch (PDOException $e) {
                                     $error = $e->errorInfo();
@@ -91,10 +87,11 @@ public function searchbyGenre($search) {
         unset($stmt);
 }
 
+// this function is displaying all user playlists and songs associated with the playlist taking the argument
+// of user which is the session user passed in
  public function displayUserPlaylists($user) {
-        
         $pdo = $this->connect();
-        //the sql statement below inserts values to playlist to user 
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         // using the select UserID from Users to display the playlists for the current user
         $sql = "SELECT songs.SongName AS 'song_title', ArtistName AS 'Artist', GenreName as 'Genre', playlist_to_user.PlaylistName AS `playlist_name`, Username
                 FROM songs
@@ -119,17 +116,54 @@ public function searchbyGenre($search) {
                             . "<td>" . $row['song_title'] . "</td>"
                             . "<td>" . $row['Genre'] . "</td>"
                             . "<td>" . '<button class = "removed" data-toggle="popover" data-placement="right" data-content="Removed from Playlist"><i class="far fa-minus-square"></i></button>' . "</td>"
-                        . "</tr>";
-                }
-                }
-
-        catch (PDOException $e) {
+                        . "</tr>"; }
+                } catch (PDOException $e) {
             $error = $e->errorInfo();
-            die("Displaying all playlists failed sorry ..." . $error . $e->getMessage());
+            die("Displaying user playlists failed sorry ..." . $error . $e->getMessage());
         }
         unset($stmt);
     }
-
-
+    
+    public function showPlaylistNames($user) {
+        $pdo= $this->connect();
+        $sql = "SELECT playlist_to_user.PlaylistName AS `playlist_name`, Username FROM playlist_to_user JOIN users as playlist_user
+                ON playlist_to_user.PlaylistOwnerID = UserID
+                WHERE playlist_to_user.PlaylistOwnerID LIKE (SELECT UserID from users WHERE Username = :user)
+                order by playlist_name;";   
+        try {   $stmt = $pdo->prepare($sql);
+                $stmt->execute(['user'=> $user]);
+                $playlistsearch = $stmt->fetchAll();
+                if(count($playlistsearch) > 0) {
+                    print '<select id="playlists">';
+                    foreach ($playlistsearch as $row) {
+                        print '<option value="'.$row['playlist_name'].'">'.$row['playlist_name'].'</option>';
+                }   print '</select>';
+//                print '<input type="submit" onclick="submitClicked(event)" value="Look at me">';
+                } else {
+                    print "user has no playlists";
+                }
+             return $playlistsearch;
+    }           catch (PDOException $e) {
+                    $error = $e->errorInfo();
+                     die("Playlist Names failed sorry ..." . $error . $e->getMessage());
+                                        }
+        unset($stmt);
+    }
+    
+//   public function playlistNamesforUser($playlistsearch) {
+//               if(count($playlistsearch) > 0) {
+//                    print '<select id="playlists">';
+//                        foreach ($playlistsearch as $row) {
+//                                print '<option value="'.$row['playlist_name'].'">'.$row['playlist_name'].'</option>';
+//                }   print '</select>';
+////                print '<input type="submit" value="Submit">';
+//                } else {
+//                    print "user has no playlists";
+//                }
+//             return $playlistsearch;
+//        
+//    }
 }
+
+ 
 

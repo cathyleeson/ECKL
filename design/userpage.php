@@ -7,7 +7,11 @@ include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/library.php"
 session_start();
 if(!empty($_SESSION)){
 $username = $_SESSION["username"];
+    if (isset($_SESSION["playlistname"])){
+    $selectedplaylist= $_SESSION["playlistname"];
 }
+}
+
 //make a new library object to run the searches on
 $searchsongs = new Library();
 ?>
@@ -31,8 +35,8 @@ $searchsongs = new Library();
     <span class="navbar-toggler-icon"></span>
   </button>
         <form method="POST">
-                <input type="text" placeholder="Search..." name="search" id="search">
-                <input type="submit" />
+                <input type="text" placeholder="Searching for..." name="search" id="search">
+                <input type="submit" value="Search" />
         </form>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -40,7 +44,7 @@ $searchsongs = new Library();
         	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hiya <? echo " " . $username ." "?> - My playlist(s)
         	</a>
        	 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-       	 	<a class="dropdown-header">Playlist 1</a>
+       	 	<a class="dropdown-header">PlaylistPlaylistPlaylist</a>
        	   <div class="dropdown-divider"></div>
            <a class="dropdown-item" href="userplaylist.php">View all playlists</a>
       	  </div>
@@ -55,8 +59,6 @@ $searchsongs = new Library();
 </div>
 </nav>
 
-
-
 <div class="container">
 	<div class="row justify-content-md-center">
 <div>
@@ -66,7 +68,10 @@ $searchsongs = new Library();
             <th scope="col">Artist</th>
             <th scope="col">Song</th>
             <th scope="col">Genre</th>
-            <th scope="col">Save to playlist</th>
+            <th scope="col">Save to playlist - 
+                <?php //this statement only shows if a playlist session is active and ready to have songs added
+                if (isset($_SESSION["playlistname"])){echo " " . $selectedplaylist;}?>
+            </th>
           </tr>
         </thead>
         <tbody>

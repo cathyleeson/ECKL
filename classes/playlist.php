@@ -7,15 +7,16 @@ class Playlist {
     use Connector;
     private $playlistName;
     private $playlistUser;
-    private $songs = [];
-   
+    
     public function __construct($playlistName, $playlistUser){
         $this->playlistName = $playlistName;
         $this->playlistUser = $playlistUser;
     } 
-
-public function createPlaylist() {
+    
+    //function to create a new user playlist and add it to the database associating it with the current user
+    public function createPlaylist() {
         $pdo = $this->connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         //the sql statement below inserts values to playlist to user 
         // using the select UserID from Users to add the playlist for the current user
         $sql = "INSERT INTO playlist_to_user (PlaylistName, PlaylistOwnerID, CreationDate, ExpiryDate, DaysLeft) "
@@ -37,7 +38,30 @@ public function createPlaylist() {
         unset($stmt);
     }
     
-    public function set($playlistName, $value){
+    // this function creates a playlist session on user page to allow songs to be added to newly created playlist
+    public function logPlaylist() {
+        $pdo = $this->connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT playlist_to_user.PlaylistName, Username FROM playlist_to_user 
+                JOIN users as playlist_user
+                    ON playlist_to_user.PlaylistOwnerID = UserID
+                WHERE PlaylistOwnerID LIKE (SELECT UserID from users WHERE Username = :user)
+                AND PlaylistName = :playlistname";
+        try {
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute(['playlistname'=> $this->playlistName, 'user'=> $this->playlistUser]);
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $_SESSION["playlistname"]=$row["PlaylistName"];
+            header("Location:userpage.php");}  
+        } catch (PDOException $e) {
+            $error = $e->errorInfo();
+            die("Playlist capture failed sorry ..." . $error . $e->getMessage());
+        }
+        unset($stmt);
+    }
+    
+    
+        public function set($playlistName, $value){
         $this->$playlistName = $value;
     }
     

@@ -13,14 +13,14 @@ class User {
         
         public function loginUser() {
         $pdo = $this->connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "SELECT Username, Password FROM users WHERE Username= :user AND Password= :psw";
         try {
             $stmt = $pdo->prepare($sql);
             $stmt->execute(['user'=> $this->username, 'psw'=> $this->password]);
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $_SESSION["username"]=$row["Username"];
-                    header("Location:userpage.php");
-                }
+                    header("Location:userpage.php");}
             
         } catch (PDOException $e) {
             $error = $e->errorInfo();
@@ -31,6 +31,7 @@ class User {
     
         public function createUser() {
         $pdo = $this->connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO users (Username, Password) VALUES (:user, :psw)";
         try {
             $stmt = $pdo->prepare($sql);

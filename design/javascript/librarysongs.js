@@ -3,21 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//function search(genre){
-//    //RPS takes Rock Paper or Scissors from the image chosen and the following lines are AJAX
-//    xhttp= new XMLHttpRequest();
-//        xhttp.onreadystatechange = function(){
-// // When readyState is 4 and status is 200, the response is ready
-//            if(this.readyState===4 && this.status ===200){
-////this says we want to send back the result of this function to the element with the ID=result
-//                document.getElementById("result").innerHTML = this.responseText;
-//            }
-//        };
-////this opens the User Page PHP file and sends the RPS - Rock, Paper or Scissors as 'choice'
-//    xhttp.open("GET", "userpage.php?search="+ genre, true); 
-//    xhttp.send();
-//            }
 
-$(document).ready(function(){
-  $('[data-toggle="popover"]').popover(); 
-});
+//$(document).ready(function () {
+//
+//    $('#search').change(function (e) {
+//        searchbyArtist($(this).val());
+//    });
+//});
+//
+//function searchbyArtist(artist) {
+//        $.ajax({
+//
+//            url: "../userpage.php",
+////The inputString will contain the value of your DropDown, you will give this parameter in the querystring
+//            data: 'queryString=' + artist,
+//            success: function (msg) {
+////MSG will be the "message" from the query
+////As you see you'll put the MSG in your HTML of your #yourFormTag
+////This message can contain everything you want
+//                if (msg.length > 0) {
+//                    $('#yourFormTag').html(msg);
+//
+//                }
+//            }
+//        });
+//}

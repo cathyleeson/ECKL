@@ -32,9 +32,16 @@ $searchplaylists = new Library();
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto"> 
+      <li class="nav-item dropdown"> <form action ="" method="GET">
+      <?php $searchplaylists->showPlaylistNames($username); ?></form>
+      </li>
+  </ul>
+    </div>
         <form action ="" method="POST">
-                <input type="text" placeholder="Add Playlist" name="playlistname" id="playlistname">
-                <input type="submit" />
+                <input type="text" placeholder="Create New Playlist" name="playlistname" id="playlistname">
+                <input type="submit" value="Add" href />
         </form>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -42,7 +49,7 @@ $searchplaylists = new Library();
         	<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Hiya <? echo " " . $username ." "?>
         	</a>
        	 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-       	 	<a class="dropdown-header">Playlist 1</a>
+       	 	<a class="dropdown-header">Enough of Playlists?</a>
        	   <div class="dropdown-divider"></div>
       	    <a class="dropdown-item" href="userpage.php">Back to search</a>
       	  </div>
@@ -58,9 +65,11 @@ $searchplaylists = new Library();
 </nav>
  <?php                     if (!empty($_POST["playlistname"])){
                                 $plyname = filter_var($_POST['playlistname'], FILTER_SANITIZE_STRING);
-                                $username = $_SESSION["username"];
                                 $createplaylists = new Playlist($plyname, $username);
-                                $createplaylists->createPlaylist();} ?>
+                                $createplaylists->createPlaylist();
+ //below creates a session when user makes a new playlist and redirects them to search page to add songs to it
+                                $logPlaylist = $createplaylists->logPlaylist();
+                                } ?>
 
 <div class="container">
 	<div class="row justify-content-md-center">
@@ -78,9 +87,9 @@ $searchplaylists = new Library();
         <tbody>
 <br><br>
   <?php
-// this checks if a user has typed in the search bar - if not then it brings up all their playlists
+// this brings up all a users playlists on page load
                             if (empty($_POST["playlistname"])) {
-                            $searchplaylists->displayUserPlaylists($_SESSION["username"]);
+                            $searchplaylists->displayUserPlaylists($username);
                             }
                         ?>
         </tbody>
