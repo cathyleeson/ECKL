@@ -1,5 +1,6 @@
 <?php
 
+namespace \classes;
 // pc users may have to rework the include statements until we figure out how mto do autoloading
 include_once "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/connector.php";
 

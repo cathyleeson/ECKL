@@ -1,5 +1,6 @@
 <?php
 
+namespace \classes;
 include_once "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/connector.php";
 class Playlist {
     // assign attributes to playlist and only construct name and user
