@@ -28,12 +28,12 @@
 		<div class="col col-lg-12"></div>
 			<div id="content">
 				<h1>Play before you pay!</h1>
-				<h3>Not the cat, the music &hearts;</h3>
+				<h3>Not the cat, the music &hearts; </h3>
 				<hr>
 <!-- the paragraph below only displays when the user is not logged in-->
-                                 <p><? if(empty($_SESSION)){
-                echo "Hello guest - please log in or sign up!" . '<br>';
-                } ?></p>
+                                 <p> <? if(empty($_SESSION)){
+                echo "Hello guest - please log in or sign up!";
+                } ?> </p>
                                 <a class="btn btn-default btn-lg" href='design/loginpage.php'>Login </a>
                                 <a class="btn btn-default btn-lg" href='design/signuppage.php'>Sign up</a>
 			</div>
