@@ -2,7 +2,6 @@
 
 <?php
     session_start();
-    include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/users/user.php"; 
     if (!empty($_POST)){
         $usn= filter_var($_POST['username'], FILTER_SANITIZE_STRING);
         $psw= $_POST["password"];

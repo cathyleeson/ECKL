@@ -2,8 +2,6 @@
 <?php
 //include the library class as it contains the methods to search
 // pc users may have to rework the include statements until we figure out how mto do autoloading
-include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/library.php";
-include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/playlist.php";
 //check user session is active
 session_start();
 if(!empty($_SESSION)){

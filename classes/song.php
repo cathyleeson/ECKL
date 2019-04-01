@@ -1,5 +1,6 @@
 <?php
 
+namespace \classes;
 class Song {
     //assign attributes of song and construct
 	private $title;

@@ -1,5 +1,6 @@
 <?php
 
+namespace classes\users;
 include "/Applications/XAMPP/xamppfiles/htdocs/songlibrary2/classes/connector.php";
 class User {
         use Connector;
